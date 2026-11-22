@@ -92,6 +92,8 @@ xorriso -indev alt-education-11.2-x86_64.iso \
 ---
 
 ### Запись на флешку из консоли Linux
+> [!WARNING]
+> USB-накопитель может уйти в защиту от записи после dd. Но защита программная и ее можно снять, как пример через diskpart.
 
 ```bash
 dd if=alt-education-11.2-auto.iso of=/dev/<флешка> bs=4m status=progress
