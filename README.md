@@ -11,3 +11,21 @@
 - cоздает нового пользователя 'user' с паролем 'user' и пароль на root — 'Admin' (не забудьте поменять пароли после установки);
 - постустановка: копирует драйверы принтеров и сканеров с флешки на системный диск и запускает оффлан-установку RPM-пакетов;
 - постустановка: меняет имя хоста на alt-edu{6 последних символов MAC-адреса}.
+
+
+### Пересборка оригинального ISO-образа
+
+```bash
+xorriso -indev alt-education-11.2-x86_64.iso \
+  -outdev alt-education-11.2-auto.iso \
+  -boot_image any replay \
+  -map autoinstall.scm /Metadata/autoinstall.scm \
+  -map grub.cfg /boot/grub/grub.cfg \
+  -map alt_offline /alt_offline
+```
+
+### Запись на флешку
+
+```bash
+dd if=alt-education-11.2-auto.iso of=/dev/<флешка> bs=4m status=progress
+```
