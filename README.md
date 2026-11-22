@@ -23,6 +23,9 @@
    - загрузится с флешки (обычно F12);
    - выбрать первый пункт **Установка ALT Education 11.2 x86_64**;
    - дождаться полной установки не отключать флешку — 20-30 минут.
+   - процесс установки выглядит как-то так:
+  
+<img src="https://raw.githubusercontent.com/atokarev-tech/Alt-Education-Drivers/refs/heads/main/assets/photo_5190906811664507022_w.jpg" alt="Описание картинки" width="320"></img>
 
 7. Успешность автоматической установки драйверов можно проверить в файле `/var/log/install_offline.log`;
 
