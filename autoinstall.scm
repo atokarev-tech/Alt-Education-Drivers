@@ -32,5 +32,5 @@
 ; 9. Копирование папки alt_offline с флешки в /opt будущей системы до перезагрузки
 ("/postinstall/laststate" run "SRC=$(find / -maxdepth 4 -type d -name 'alt_offline' 2>/dev/null | head -n 1); if [ -n \"$SRC\" ]; then mkdir -p ${destdir:-/mnt/destination}/opt && cp -r \"$SRC\" ${destdir:-/mnt/destination}/opt/alt_offline && chmod +x ${destdir:-/mnt/destination}/opt/alt_offline/install_offline.sh; fi")
 
-; 10. Запуск скрипта при первом старте установленной системы
-("/postinstall/firsttime" run "if [ -f /opt/alt_offline/install_offline.sh ]; then cd /opt/alt_offline && bash /opt/alt_offline/install_offline.sh > /var/log/install_offline.log 2>&1; fi")
+; 10. Установка имени ПК по MAC-адресу, обновление /etc/hosts и запуск скрипта установки драйверов при первом старте
+("/postinstall/firsttime" run "MAC=$(cat /sys/class/net/[ew]*/address 2>/dev/null | grep -v '00:00:00:00:00:00' | head -n 1 | tr -d ':' | tail -c 7); [ -z \"$MAC\" ] && MAC=$((1000 + RANDOM % 9000)); NEW_HOST=\"alt-edu${MAC}\"; hostnamectl set-hostname \"$NEW_HOST\"; grep -q '127.0.1.1' /etc/hosts && sed -i \"s/^127\\.0\\.1\\.1.*/127.0.1.1\\t$NEW_HOST/\" /etc/hosts || echo -e \"127.0.1.1\\t$NEW_HOST\" >> /etc/hosts; if [ -f /opt/alt_offline/install_offline.sh ]; then cd /opt/alt_offline && bash /opt/alt_offline/install_offline.sh > /var/log/install_offline.log 2>&1; fi")
