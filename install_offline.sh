@@ -28,8 +28,8 @@ apt-get install -y \
 apt-get install -y "$CP_DIR"/cprocsp-rdr-cryptoki*.rpm
 apt-get install -y "$CP_DIR"/cprocsp-cptools*.rpm
 
-echo "=== 3. Установка драйверов Pantum BP5100DN ==="
-apt-get install -y "$SCRIPT_DIR"/pantum-*.rpm
+echo "=== 3. Установка драйверов Pantum ==="
+rpm -Uvh --replacepkgs "$SCRIPT_DIR"/pantum-*.rpm
 
 echo "=== 4. Установка драйверов Fujitsu SP-1120 ==="
 apt-get install -y "$SCRIPT_DIR"/pfusp-*.rpm
@@ -39,8 +39,8 @@ cp -f "$SCRIPT_DIR"/60-pfusp.rules /etc/udev/rules.d/60-pfusp.rules
 echo "=== 5. Установка драйверов Avision AV332U ==="
 rpm -Uvh --replacepkgs "$SCRIPT_DIR"/scanner-driver-avision-*.rpm
 
-echo "=== Перезагрузка правил udev ==="
-udevadm control --reload
-udevadm trigger --action=add
+echo "=== 6. Перезагрузка правил udev ==="
+udevadm control --reload-rules
+udevadm trigger
 
 echo "Готово! Все компоненты успешно установлены."
